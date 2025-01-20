@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/penaltymodel-lp-{{ version }}.tar.gz
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/penaltymodel-lp-{{ version }}.tar.gz
     sha256: 5203d6d9af3efebd0744ac984dd367fb8eb48fe5afb060b6c2273d5b62dac101
   - url: https://raw.githubusercontent.com/dwavesystems/penaltymodel/lp-{{ version }}/LICENSE
     sha256: 100ca5aff29fe3d7bcc94e59dfcf0fd55d93745fc590c87f217a99fd314f0884
@@ -14,17 +14,17 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - dimod >=0.8.0,<0.11.0
     - numpy >=1.19.1,<2.0.0
     - penaltymodel >=0.16.0,<0.17.0
-    - python >=3.6
+    - python >={{ python_min }}
     - scipy >=1.5.2,<2.0.0
 
 test:
@@ -34,6 +34,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/dwavesystems/penaltymodel
